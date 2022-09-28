@@ -1,12 +1,14 @@
-import axios from 'axios';
+
 import React, { useEffect, useState } from 'react';
+import { Page } from '../models/book';
+import ApiService from '../services/api-service';
 import './Bookspages.scss';
 
 function Bookspages(props: any) {
 
 
-  const [slides, setSlides] = useState([]);
-  const [currentSlide, setCurrentSlide] = useState();
+  const [slides, setSlides] = useState<Page[]>([]);
+  const [currentSlide, setCurrentSlide] = useState<Page>();
   const [indexValue, setIndexValue] = useState(1);
   const [chapterIndex, updateChapterIndex] = useState(1);
 
@@ -17,12 +19,13 @@ function Bookspages(props: any) {
         setIndexValue(1);
         setSlides(res);
       });
+    } else {
+      setSlides([]);
     }
   }, [props.selectedBookData]);
 
   const fetchData = async () => {
-
-    const response1 = await axios.get(`http://18.177.140.79:8080/chapters/${props.selectedBookData}/`);
+    const response1 = await ApiService.getChapterDetails(props.selectedBookData);
     setCurrentSlide(response1.data.pages[0]);
     return response1.data.pages;
   }
@@ -57,7 +60,7 @@ function Bookspages(props: any) {
         <div className="flex-container">
           <div id="slider">
             <div className="slide">
-              {slides.length && currentSlide != undefined && <img src={currentSlide['image']['file']} alt='test' className="slider-img" useMap="#gfg_map" />}
+              {slides.length > 0 && currentSlide != undefined && <img src={currentSlide['image']['file']} alt='test' className="slider-img" useMap="#gfg_map" />}
               <map name="gfg_map">
                 <area shape="rect" coords="0,0, 250,500" alt="GFG1"
                   onClick={arrowRightClick} />

@@ -1,31 +1,35 @@
-import axios from 'axios';
+
 import React, { useEffect, useState } from 'react';
+import { Page } from '../models/book';
+import ApiService from '../services/api-service';
 import Bookspages from './Bookspages';
 
 
 function Pagination(props: any) {
-  const [pageData, setPageData] = useState([]);
-  const [selectedBookpages, setSelectedBookpages] = useState();
-  const [active, setActive] = useState("");
+
+  const [pageData, setPageData] = useState<number[]>([]);
+  const [selectedBookpages, setSelectedBookpages] = useState<number>();
+  const [active, setActive] = useState<number>();
 
   useEffect(() => {
     if (props.selectedBook) {
       fetchData().then((data) => {
         setPageData(data);
+        setSelectedBookpages(0)
       });
     }
   }, [props.selectedBook]);
 
   const fetchData = async () => {
+    const response1 = await ApiService.getBookDetails(props.selectedBook);
 
-    const response1 = await axios.get(`http://18.177.140.79:8080/books/${props.selectedBook}/`);
     return response1.data.chapter_ids;
   }
-  function onChange(val: any) {
+  function onChange(val: number) {
     handleClick(pageData[val]);
   }
 
-  const handleClick = (data: any) => {
+  const handleClick = (data: number) => {
     setActive(data);
     setSelectedBookpages(data)
   }

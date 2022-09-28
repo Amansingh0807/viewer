@@ -1,17 +1,19 @@
-import axios from 'axios';
+
 import React, { useEffect, useState } from 'react';
+import { Book } from '../models/book';
+import ApiService from '../services/api-service';
 import './Books.css';
 import Pagination from './Pagination';
 
 function Books() {
-  const [bookdata, setBooks] = useState([]);
-  const [selectedBook, setSelectedBook] = useState();
-  const [active, setActive] = useState("");
+  const [bookdata, setBooks] = useState<Book[]>([]);
+  const [selectedBookId, setSelectedBookId] = useState<number>();
+  const [active, setActive] = useState<number>();
 
 
   useEffect(() => {
     const fetchData = async () => {
-      const response1 = await axios.get(`http://18.177.140.79:8080/books/`);
+      const response1 = await ApiService.getBooks();
 
       setBooks(response1.data);
     }
@@ -19,17 +21,17 @@ function Books() {
     fetchData();
   }, []);
 
-  const handleClick = (data: any) => {
+  const handleClick = (data: Book) => {
     setActive(data.id);
-    setSelectedBook(data['id'])
+    setSelectedBookId(data.id)
   }
   const listItems = bookdata.map((data, i) =>
-    <button key={i} className={active === data['id'] ? "active" : undefined} onClick={() => handleClick(data)}>{data['title']} </button>
+    <button key={i} className={active == data.id ? "active" : undefined} onClick={() => handleClick(data)}>{data.title} </button>
   );
   return (
     <div className="App">
       <div>{listItems}</div>
-      <Pagination selectedBook={selectedBook} />
+      <Pagination selectedBook={selectedBookId} />
     </div>
 
   );
