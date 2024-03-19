@@ -6,6 +6,7 @@ import './Books.css';
 import Pagination from './Pagination';
 
 function Books() {
+  console.log('Books')
   const [bookdata, setBooks] = useState<Book[]>([]);
   const [selectedBookId, setSelectedBookId] = useState<number>();
   const [active, setActive] = useState<number>();
