@@ -21,7 +21,6 @@ I'm Sam, and I'm passionate about product engineering and web development. I cre
 
 ### About the app
 Book app. 
-[Demo](http://reactjsdevelopment.github.io/viewer)
 
 ### Packages used
 -  react
