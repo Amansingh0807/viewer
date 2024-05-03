@@ -11,14 +11,11 @@ function Books() {
   const [selectedBookId, setSelectedBookId] = useState<number>();
   const [active, setActive] = useState<number>();
 
-
   useEffect(() => {
     const fetchData = async () => {
       const response1 = await ApiService.getBooks();
-
       setBooks(response1.data);
     }
-
     fetchData();
   }, []);
 
@@ -26,9 +23,11 @@ function Books() {
     setActive(data.id);
     setSelectedBookId(data.id)
   }
+
   const listItems = bookdata.map((data, i) =>
     <button key={i} className={active == data.id ? "active" : undefined} onClick={() => handleClick(data)}>{data.title} </button>
   );
+
   return (
     <div className="App">
       <div>{listItems}</div>
