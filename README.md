@@ -22,8 +22,12 @@ I'm Sam, and I'm passionate about product engineering and web development. I cre
 ### About the app
 Book app. 
 
+### useful commands to run project
+- npm run start
+
 ### Packages used
 -  react
+-  "typedoc": "^0.25.13"
 
 ## Subscribe and Stay Updated!
 

@@ -1,10 +1,12 @@
 
+// Also documented.
 import React, { useEffect, useState } from 'react';
 import { Book } from '../models/book';
 import ApiService from '../services/api-service';
 import './Books.css';
 import Pagination from './Pagination';
 
+/** Documented! */
 function Books() {
   console.log('Books')
   const [bookdata, setBooks] = useState<Book[]>([]);
@@ -38,3 +40,6 @@ function Books() {
 }
 
 export default Books;
+
+// Not documented as it is not visible to your module's consumers.
+function localHelper() {}
